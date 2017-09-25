@@ -24,12 +24,13 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-type wifi_ftmd, domain, domain_deprecated;
-type wifi_ftmd_exec, exec_type, file_type;
+type wifi_ftmd, domain;
+type wifi_ftmd_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(wifi_ftmd)
 
 net_domain(wifi_ftmd)
 
-set_prop(wifi_ftmd, wififtmd_prop)
+set_prop(wifi_ftmd,wififtmd_prop);
 allow wifi_ftmd self:capability net_admin;
+allow wifi_ftmd wififtmd_prop:property_service set;

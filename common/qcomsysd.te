@@ -1,7 +1,7 @@
 #Policy file for qcom-system-daemon
 #qcomsysd = qcom-system-daemon domain
-type qcomsysd, domain, domain_deprecated;
-type qcomsysd_exec, exec_type, file_type;
+type qcomsysd, domain;
+type qcomsysd_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(qcomsysd);
 
 #Needed for logging
@@ -21,10 +21,12 @@ allow qcomsysd sysfs_socinfo:file w_file_perms;
 allow qcomsysd self:capability { dac_override sys_boot };
 use_per_mgr(qcomsysd);
 #allow qcomsysd access boot mode switch
-set_prop(qcomsysd, boot_mode_prop)
+set_prop(qcomsysd, boot_mode_prop);
 
 #diag
 userdebug_or_eng(`
     diag_use(qcomsysd)
-    allow qcomsysd sysfs:file w_file_perms;
+    set_prop(qcomsysd, powerctl_prop)
+    allow qcomsysd sysfs:file rw_file_perms;
+    allow qcomsysd sysfs_data:file r_file_perms;
 ')

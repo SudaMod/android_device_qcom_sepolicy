@@ -52,11 +52,9 @@
 #mediacodec need intraction with audio device nodes
 allow mediacodec audio_device:chr_file rw_file_perms;
 
-#interaction with mptcl sockets
-unix_socket_connect(mediacodec, mpctl, perfd)
-
 #allow mediacodec to access adsprpcd
 r_dir_file(mediacodec, adsprpcd_file);
+r_dir_file(mediacodec, firmware_file);
 
 #Allow mediacodec to access proc_net files
 allow mediacodec proc_net:file r_file_perms;
@@ -64,9 +62,19 @@ allow mediacodec proc_net:file r_file_perms;
 allow mediacodec system_file:dir r_dir_perms;
 allow mediacodec qdsp_device:chr_file r_file_perms;
 
-#Allow mediacodec to access service manager wfdservice
-allow mediacodec wfdservice_service:service_manager find;
+#Allow mediacodec to access service manager wfdnativemm_service
+allow mediacodec wfdnativemm_service:service_manager find;
+hal_client_domain(mediacodec, wifidisplayhalservice)
+
+allow mediacodec media_data_file:dir create_dir_perms;
+allow mediacodec media_data_file:file create_file_perms;
+
 # DOLBY_START
-allow mediacodec audioserver_service:service_manager find;
+#allow mediacodec audioserver_service:service_manager find;
 set_prop(mediacodec, dolby_prop)
 # DOLBY_END
+allow mediacodec debug_gralloc_prop:file r_file_perms;
+vndbinder_use(mediacodec);
+hwbinder_use(mediacodec);
+hal_client_domain(mediacodec, hal_vpp)
+hal_client_domain(mediacodec, hal_perf)

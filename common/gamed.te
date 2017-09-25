@@ -27,9 +27,7 @@
 
 # GAMED
 
-type gamed, domain, domain_deprecated;
-type gamed_exec, exec_type, file_type;
+type gamed, domain;
+type gamed_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(gamed)
-
-unix_socket_connect(gamed, mpctl, perfd)

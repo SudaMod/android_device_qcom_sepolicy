@@ -49,25 +49,17 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#access to perflock
-allow audioserver mpctl_socket:dir r_dir_perms;
-unix_socket_send(audioserver, mpctl, mpdecision)
-unix_socket_connect(audioserver, mpctl, mpdecision)
-
-# access to perflock
-allow audioserver mpctl_socket:dir r_dir_perms;
-unix_socket_send(audioserver, mpctl, perfd)
-unix_socket_connect(audioserver, mpctl, perfd)
-
 #debugfs access to audio
 userdebug_or_eng(`
-typeattribute audioserver qti_debugfs_domain;
-allow audioserver debugfs:dir r_dir_perms;
-allow audioserver debugfs:file rw_file_perms;
+allow audioserver qti_debugfs:dir r_dir_perms;
+allow audioserver qti_debugfs:file rw_file_perms;
 ')
 # Allow audioserver to create socket files for audio arbitration
 allow audioserver audio_data_file:sock_file { create setattr unlink };
 allow audioserver audio_data_file:dir remove_name;
+
+# Allow audioserver to read soundcard state under /proc/asound
+allow audioserver proc_audiod:file r_file_perms;
 
 # Allow audioserver to read sysfs dir and sysfs_thermal files for speaker protection
 allow audioserver sysfs:dir r_dir_perms;
@@ -80,12 +72,9 @@ userdebug_or_eng(`
 ')
 
 #Rules for audioserver to talk to peripheral manager
-use_per_mgr(audioserver);
+#use_per_mgr(audioserver);
 
 # DOLBY_START
 allow audioserver activity_service:service_manager find;
 set_prop(audioserver, dolby_prop)
 # DOLBY_END
-
-# for thermal sock files
-unix_socket_connect(audioserver, thermal, thermal-engine)

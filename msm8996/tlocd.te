@@ -25,10 +25,10 @@
 # OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-type tlocd, domain, domain_deprecated;
-type tlocd_exec, exec_type, file_type;
+type tlocd, domain;
+type tlocd_exec, exec_type, vendor_file_type, file_type;
 
-init_daemon_domain(tlocd)
+#init_daemon_domain(tlocd)
 
 # Allow interracting with tlocd directory
 allow tlocd tlocd_data_file:dir create_dir_perms;
@@ -44,5 +44,5 @@ r_dir_file(tlocd, firmware_file)
 allow tlocd tlocd_data_file:fifo_file create_file_perms;
 
 #Allow access MODEM
-allow tlocd self:socket create_socket_perms;
+allow tlocd self:socket create_socket_perms_no_ioctl;
 qmux_socket(tlocd);

@@ -45,7 +45,6 @@ type rpmb_device, dev_type;
 type sg_device, dev_type;
 type dip_device, dev_type;
 type mdtp_device, dev_type;
-
 type sd_device, dev_type;
 
 #ESOC device
@@ -95,6 +94,9 @@ type sp_ssr_device, dev_type;
 # Define sp_keymaster device
 type sp_keymaster_device, dev_type;
 
+# Define sec_nvm devices
+type sec_nvm_device, dev_type;
+
 # Define cryptoapp device
 type cryptoapp_device, dev_type;
 
@@ -118,17 +120,11 @@ type hbtp_device, dev_type;
 type qce_device, dev_type;
 type rng_device, dev_type;
 
-#added for voice device
-type voice_device, dev_type;
-
 #Define system health monitor devices
 type system_health_monitor_device, dev_type;
 
 #Define usf device
 type usf_device, dev_type;
-
-#Define seemplog device
-type seemplog_device, dev_type;
 
 #Define qbt1000 device - ultrasonic fingperprint sensor
 type qbt1000_device, dev_type;
@@ -141,3 +137,18 @@ type at_device, dev_type;
 
 #define Bluetooth device
 type bt_device, dev_type;
+
+#define Wlan device
+type wlan_device, dev_type;
+
+#Define rawdump block device
+type rawdump_block_device, dev_type;
+
+#Block device for A/B partitions
+type custom_ab_block_device, dev_type;
+type xbl_block_device, dev_type;
+type gpt_block_device, dev_type;
+type modem_block_device, dev_type;
+
+#define bgcom char device
+type bg_daemon_device, dev_type;
